@@ -1,113 +1,183 @@
-import Image from "next/image";
+"use client";
+import React, { useState } from 'react';
+import { products } from './products';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 export default function Home() {
+  const logoImage = {
+    name: 'Company Logo',
+    href: '#',
+    imageSrc: 'https://static.vecteezy.com/system/resources/previews/010/994/236/large_2x/nike-logo-white-with-name-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.jpg',
+    imageAlt: 'Company logo.',
+  };
+  const [searchQuery, setSearchQuery] = useState('');
+  const slides = [
+    'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
+    'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
+    'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
+  ];
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <div className="min-h-screen bg-gray-100">
+      <header className="bg-white shadow-md">
+        <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
+          <a href={logoImage.href} className="flex items-center space-x-2">
+            <img
+              src={logoImage.imageSrc}
+              alt={logoImage.imageAlt}
+              className="w-14 h-auto"
             />
           </a>
+          <div className="flex space-x-4">
+            <a href="#" className="text-gray-600 hover:text-gray-800">Home</a>
+            <a href="#" className="text-gray-600 hover:text-gray-800">Products</a>
+            <a href="#" className="text-gray-600 hover:text-gray-800">About</a>
+            <a href="#" className="text-gray-600 hover:text-gray-800">Contact</a>
+          </div>
+        </nav>
+        <div className="container mx-auto px-6 py-3">
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
+      </header>
+
+      <main>
+        <section className="container mx-auto px-6 py-16">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="w-full md:w-1/2 mb-8 md:mb-0 order-2 md:order-1">
+              <h1 className="text-4xl font-bold text-gray-800 mb-4">Embrace Comfort with ShoeZ - Online Ecommerce hop!</h1>
+              <p className="text-xl text-gray-600 mb-6">Step into a world of style and comfort with ShoeZ, where every pair of shoes tells a story of craftsmanship and innovation. Explore our curated collection, where trends seamlessly merge with unparalleled ease.</p>
+              <button className="bg-blue-600 text-white font-bold py-2 px-6 border-2 border-blue-600 hover:bg-white hover:text-blue-600 hover:border-blue-600 transition duration-300">
+                Learn About Us
+              </button>
+            </div>
+            <div className="w-full md:w-1/2 order-1 md:order-2 relative">
+              <Swiper
+                modules={[Autoplay, Pagination, Navigation]}
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                className="w-3/4 mx-auto"
+              >
+                {slides.map((slide, index) => (
+                  <SwiperSlide key={index} className="relative">
+                    <img
+                      src={slide}
+                      alt={`Slide ${index + 1}`}
+                      className="w-full h-auto"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </div>
+        </section>
+        <section className="container mx-auto px-6 py-16">
+  {/* Service Highlights */}
+  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
+    <div className="flex items-center space-x-4">
+      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+      <div>
+        <h3 className="font-bold">Free Delivery</h3>
+        <p className="text-sm text-gray-600">Free shipping on all order</p>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+    </div>
+    <div className="flex items-center space-x-4">
+      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+      <div>
+        <h3 className="font-bold">ONLINE SUPPORT 24/7</h3>
+        <p className="text-sm text-gray-600">Support online 24 hours a day</p>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+    </div>
+    <div className="flex items-center space-x-4">
+      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+      <div>
+        <h3 className="font-bold">MONEY RETURN</h3>
+        <p className="text-sm text-gray-600">Support online 24 hours a day</p>
       </div>
-    </main>
+    </div>
+    <div className="flex items-center space-x-4">
+      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+      <div>
+        <h3 className="font-bold">SECURE PAYMENT</h3>
+        <p className="text-sm text-gray-600">Support online 24 hours a day</p>
+      </div>
+    </div>
+  </div>
+  <div>
+  <div>
+  <img src="" alt="Shoe 1" className="rounded-lg" />
+    </div>
+    <div className="w-full md:w-1/2 md:pl-16 mt-8 md:mt-0">
+      <h2 className="text-4xl font-bold mb-4">About ShoeZ</h2>
+      <p className="text-gray-600 mb-6">
+        Discover the ShoeZ story. We're passionate about creating footwear that not only
+        complements your style but also prioritizes comfort and quality.
+      </p>
+      <button className="bg-white text-blue-600 font-bold py-2 px-6 border-2 border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition duration-300">
+        View Our Products
+      </button>
+    </div>
+  </div>
+</section>
+        <section className="bg-gray-200 py-16">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Featured Products</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {filteredProducts.map((product) => (
+                <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img
+                    src={product.imageSrc}
+                    alt={product.imageAlt}
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{product.name}</h3>
+                    <p className="text-gray-600 mb-4">{product.price} - {product.color}</p>
+                    <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <p>&copy; 2024 ShoeStore. All rights reserved.</p>
+            </div>
+            <div className="flex space-x-4">
+              <a href="#" className="hover:text-gray-300">Privacy Policy</a>
+              <a href="#" className="hover:text-gray-300">Terms of Service</a>
+              <a href="#" className="hover:text-gray-300">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
