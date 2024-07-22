@@ -8,6 +8,8 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Link from 'next/link';
 import { Splash } from './Splash';
+import { FaSearch,FaShoppingCart } from "react-icons/fa";
+import { CgProfile } from 'react-icons/cg';
 
 export default function Home() {
   const latestProducts = [
@@ -53,13 +55,16 @@ export default function Home() {
       color: 'Grey',
     },
   ];
+
   const logoImage = {
     name: 'Company Logo',
     href: '#',
     imageSrc: 'https://media.istockphoto.com/id/1665714191/vector/shoes-shop.jpg?s=612x612&w=0&k=20&c=bFQXXwYhDyN0SQPgfWy8x_qIpIDRx7ckuojuh2MU1fI=',
     imageAlt: 'Company logo.',
-  };
+};
+
   const [searchQuery, setSearchQuery] = useState('');
+
   const slides = [
     'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
     'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
@@ -75,6 +80,7 @@ export default function Home() {
   const shoeCircleRef2 = useRef(null);
 
   useEffect(() => {
+
     let rotation = 0;
     let animationFrameId;
 
@@ -95,6 +101,7 @@ export default function Home() {
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setSplash(false);
@@ -108,7 +115,7 @@ export default function Home() {
         <Splash />
       ) : (
         <>
-          <header className="bg-white shadow-md sticky top-0 z-50">
+          <header className="bg-white shadow-md m-auto sticky top-0 z-50">
             <nav role="navigation" className="container mx-auto px-6 py-3 flex justify-between items-center">
               <img
                 src={logoImage.imageSrc}
@@ -124,7 +131,7 @@ export default function Home() {
                   <span>Products</span>
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </Link>
-                <Link href="/about" className="text-gray-600 hover:text-gray-800 relative group">
+                <Link href="/About" className="text-gray-600 hover:text-gray-800 relative group">
                   <span>About</span>
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </Link>
@@ -133,9 +140,19 @@ export default function Home() {
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </Link>
               </div>
+              <div className='flex flex-row justify-normal mr-5' >
+                <Link href="#" className='text-gray-600 hover:text-gray-700' >
+                  <FaSearch size={22} className='mr-6' />
+                </Link>
+                <Link href="#" className='text-gray-600 hover:text-gray-700' >
+                  <FaShoppingCart size={22} className='mr-6' />
+                </Link>
+                <Link href="/SignUp" className='text-gray-600 hover:text-gray-700' >
+                  <CgProfile size={22} className='mr-5' />
+                </Link>
+              </div>
             </nav>
           </header>
-
           <main>
             <section className="container mx-auto px-6 py-16">
               <div className="flex flex-col md:flex-row items-center justify-between">
