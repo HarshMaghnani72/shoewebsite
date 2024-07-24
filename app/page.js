@@ -8,10 +8,10 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Link from 'next/link';
 import { Splash } from './Splash';
-import { FaSearch,FaShoppingCart } from "react-icons/fa";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from 'react-icons/cg';
 
-export default function Home() {
+const page = () => {
   const latestProducts = [
     {
       id: 1,
@@ -20,7 +20,7 @@ export default function Home() {
       brand: 'Nike',
       imageSrc: 'https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/j/f/1/9-23151-9-nobelite-white-original-imahyjmu9tgxzgz4.jpeg?q=70',
       imageAlt: 'Side view of Classic Sneaker.',
-      price: '$ 75.00 USD',
+      price: '$75 USD',
       color: 'White',
 
     },
@@ -31,7 +31,7 @@ export default function Home() {
       brand: 'Nike',
       imageSrc: "https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/m/n/q/-original-imagz5kfgwycthhz.jpeg?q=70",
       imageAlt: 'Top view of Running Shoes in blue.',
-      price: '$ 90.00 USD',
+      price: '$90 USD',
       color: 'Blue',
     },
     {
@@ -41,7 +41,7 @@ export default function Home() {
       brand: 'Nike',
       imageSrc: 'https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/o/g/d/8-tarzan-04-8-asian-white-navy-sky-original-imagtg5hbgykgnzc.jpeg?q=70',
       imageAlt: 'High-top Sneakers in red.',
-      price: '$ 95.00 USD',
+      price: '$95 USD',
       color: 'Red',
     },
     {
@@ -51,7 +51,7 @@ export default function Home() {
       brand: 'Nike',
       imageSrc: 'https://rukminim2.flixcart.com/image/612/612/xif0q/safety-shoe/5/z/2/9-metro-double-puncture-and-tear-resistant-steel-toe-anti-slip-original-imag33xgyf3xcgpr-bb.jpeg?q=70',
       imageAlt: 'Slip-on Shoes in grey.',
-      price: '$ 55.00 USD',
+      price: '$55 USD',
       color: 'Grey',
     },
   ];
@@ -61,19 +61,12 @@ export default function Home() {
     href: '#',
     imageSrc: 'https://media.istockphoto.com/id/1665714191/vector/shoes-shop.jpg?s=612x612&w=0&k=20&c=bFQXXwYhDyN0SQPgfWy8x_qIpIDRx7ckuojuh2MU1fI=',
     imageAlt: 'Company logo.',
-};
-
-  const [searchQuery, setSearchQuery] = useState('');
-
+  };
   const slides = [
     'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
     'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
     'https://cdn.prod.website-files.com/65a62949580c5ed45b48f683/6634e3fc68f6e5864f36163d_freepik-export-20240501185623I1X8.webp',
   ];
-
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const [splash, setSplash] = useState(true);
   const shoeCircleRef = useRef(null);
@@ -125,25 +118,22 @@ export default function Home() {
               <div className="flex space-x-4">
                 <Link href="/" className="text-gray-600 hover:text-gray-800 relative group">
                   <span>Home</span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></span>
                 </Link>
                 <Link href="/ShoeList" className="text-gray-600 hover:text-gray-800 relative group">
                   <span>Products</span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></span>
                 </Link>
                 <Link href="/About" className="text-gray-600 hover:text-gray-800 relative group">
                   <span>About</span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></span>
                 </Link>
                 <Link href="/ContactUs" className="text-gray-600 hover:text-gray-800 relative group">
                   <span>Contact</span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></span>
                 </Link>
               </div>
               <div className='flex flex-row justify-normal mr-5' >
-                <Link href="#" className='text-gray-600 hover:text-gray-700' >
-                  <FaSearch size={22} className='mr-6' />
-                </Link>
                 <Link href="#" className='text-gray-600 hover:text-gray-700' >
                   <FaShoppingCart size={22} className='mr-6' />
                 </Link>
@@ -390,14 +380,14 @@ export default function Home() {
                   <h3 className="text-gray-700 font-semibold mb-4">Links</h3>
                   <ul className="text-gray-500">
                     <li className="mb-2"><a href="#" className="hover:text-gray-900">Home</a></li>
-                    <li className="mb-2"><a href="#" className="hover:text-gray-900">About</a></li>
+                    <li className="mb-2"><a href="/About" className="hover:text-gray-900">About</a></li>
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-gray-700 font-semibold mb-4">Pages</h3>
                   <ul className="text-gray-500">
-                    <li className="mb-2"><a href="#" className="hover:text-gray-900">Products</a></li>
-                    <li className="mb-2"><a href="#" className="hover:text-gray-900">Contact</a></li>
+                    <li className="mb-2"><a href="/ShoeList" className="hover:text-gray-900">Products</a></li>
+                    <li className="mb-2"><a href="/ContactUs" className="hover:text-gray-900">Contact</a></li>
                   </ul>
                 </div>
                 <div>
@@ -436,3 +426,4 @@ export default function Home() {
     </div>
   );
 }
+export default page;

@@ -26,7 +26,7 @@ export const Header = ({ onSearch }) => {
 
     return (
         <header className="bg-white shadow-md m-auto sticky top-0 z-50">
-            <nav role="navigation" className="container mx-auto px-6 py-3 flex justify-between items-center">
+            <nav role="navigation" className="containermx-auto px-6 py-3 flex justify-between items-center">
                 <img
                     src={logoImage.imageSrc}
                     alt={logoImage.imageAlt}

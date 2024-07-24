@@ -12,8 +12,7 @@ export default function Example() {
     setSearchQuery(query);
     const lowercaseQuery = query.toLowerCase();
     const results = products.filter((product) =>
-      product.name.toLowerCase().includes(lowercaseQuery) ||
-      product.color.toLowerCase().includes(lowercaseQuery)
+      product.name.toLowerCase().includes(lowercaseQuery)
     );
     setSearchResults(results);
   };
