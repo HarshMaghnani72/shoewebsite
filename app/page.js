@@ -149,7 +149,10 @@ const page = () => {
                 <div className="w-full md:w-1/2 mb-8 md:mb-0 order-2 md:order-1">
                   <h1 className="text-4xl font-bold text-gray-800 mb-4">Embrace Comfort with shoe - Online Ecommerce hop!</h1>
                   <p className="text-xl text-gray-600 mb-6">Step into a world of style and comfort with shoe, where every pair of shoes tells a story of craftsmanship and innovation. Explore our curated collection, where trends seamlessly merge with unparalleled ease.</p>
-                  <button className="bg-blue-600 text-white font-bold py-2 px-6 border-2 border-blue-600 hover:bg-white hover:text-blue-600 hover:border-blue-600 transition duration-300">
+                  <button
+                    onClick={() => window.location.href = '/About'}
+                    className="bg-blue-600 text-white font-bold py-2 px-6 border-2 border-blue-600 hover:bg-white hover:text-blue-600 hover:border-blue-600 transition duration-300"
+                  >
                     Learn About Us
                   </button>
                 </div>
@@ -282,7 +285,10 @@ const page = () => {
                     Discover the shoe story. We're passionate about creating footwear that not only
                     complements your style but also prioritizes comfort and quality.
                   </p>
-                  <button className="bg-white text-blue-600 font-bold py-2 px-6 border-2 border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition duration-300">
+                  <button
+                    onClick={() => window.location.href = '/ShoeList'}
+                    className="bg-white text-blue-600 font-bold py-2 px-6 border-2 border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition duration-300"
+                  >
                     View Our Products
                   </button>
                 </div>
