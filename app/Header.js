@@ -25,14 +25,17 @@ export const Header = ({ onSearch }) => {
     };
 
     return (
-        <header className="bg-white shadow-md m-auto sticky top-0 z-50">
-            <nav role="navigation" className="containermx-auto px-6 py-3 flex justify-between items-center">
-                <img
-                    src={logoImage.imageSrc}
-                    alt={logoImage.imageAlt}
-                    className="w-1/12 h-1/2"
-                />
-                <div className="flex space-x-4">
+        <header className="bg-white shadow-md sticky top-0 z-50">
+            <nav role="navigation" className="container mx-auto px-6 py-3 flex items-center justify-between">
+                <div className="flex items-center w-1/4">
+                    <img
+                        src={logoImage.imageSrc}
+                        alt={logoImage.imageAlt}
+                        className="w-24 h-auto"
+                    />
+                </div>
+                
+                <div className="flex space-x-4 justify-center w-1/2">
                     <Link href="/" className="text-gray-600 hover:text-gray-800 relative group">
                         <span>Home</span>
                         <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
@@ -50,7 +53,8 @@ export const Header = ({ onSearch }) => {
                         <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                     </Link>
                 </div>
-                <div className='flex items-center'>
+                
+                <div className='flex items-center justify-end w-1/4'>
                     <form onSubmit={handleSearchSubmit} className='flex items-center'>
                         <input
                             type="text"
@@ -63,7 +67,7 @@ export const Header = ({ onSearch }) => {
                             <FaSearch size={22} />
                         </button>
                     </form>
-                    <Link href="#" className='text-gray-600 hover:text-gray-700 ml-4'>
+                    <Link href="/Cart" className='text-gray-600 hover:text-gray-700 ml-4'>
                         <FaShoppingCart size={22} />
                     </Link>
                     <Link href="/SignUp" className='text-gray-600 hover:text-gray-700 ml-4'>

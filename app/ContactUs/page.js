@@ -59,7 +59,7 @@ export default function ContactUs() {
             </Link>
           </div>
           <div className='flex space-x-6'>
-            <Link href="#" className='text-gray-600 hover:text-gray-700'>
+            <Link href="/Cart" className='text-gray-600 hover:text-gray-700'>
               <FaShoppingCart size={22} />
             </Link>
             <Link href="/SignUp" className='text-gray-600 hover:text-gray-700'>

@@ -1,7 +1,7 @@
 'use client'
 import { useParams } from 'next/navigation';
 import { productsView } from '../productsView';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -13,39 +13,47 @@ function classNames(...classes) {
 }
 
 export default function ProductPage() {
+  const params = useParams();
+  const productId = parseInt(params.id);
+  const product = productsView.find(p => p.id === productId);
+
+  const [cart, setCart] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[2]);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
-    console.log(storedCart);
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
   }, []);
-  const params = useParams();
-  const productId = parseInt(params.id);
-  const product = productsView.find(p => p.id === productId);
-  const [cart, setCart] = useState([]);
+
   if (!product || !product.id) {
     return <div>Product not found</div>;
   }
 
-  const [selectedSize, setSelectedSize] = useState(product.sizes?.[2]);
-  const addToCart=()=>{
-    window.location.href = '/Cart';
+  const handleQuantity = (e) => {
+    setSelectedQuantity(Number(e.target.value));
+  }
+
+  const addToCart = () => {
     const newItem = {
       id: product.id,
       name: product.name,
       price: product.price,
       size: selectedSize.name,
-      quantity: 1,
+      quantity: parseInt(selectedQuantity),
       imageSrc: product.images[0].src,
       imageAlt: product.images[0].alt,
     };
+
     const updatedCart = [...cart, newItem];
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     alert("Product added to cart");
-    console.log(updatedCart)
+    window.location.href = '/Cart';
   }
+
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -133,6 +141,18 @@ export default function ProductPage() {
                     ))}
                   </div>
                 </fieldset>
+              </div>
+
+              <div className="mt-5 max-w-xs">
+                <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-700">Enter Quantity</label>
+                <input
+                  type="number"
+                  id="quantity"
+                  placeholder="Quantity..."
+                  value={selectedQuantity}
+                  onChange={handleQuantity}
+                  className="w-full px-5 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition duration-300 ease-in-out hover:border-blue-300"
+                />
               </div>
 
               <button

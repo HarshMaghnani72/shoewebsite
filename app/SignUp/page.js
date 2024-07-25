@@ -53,7 +53,7 @@ const page = () => {
                         </Link>
                     </div>
                     <div className='flex flex-row justify-normal mr-5' >
-                        <Link href="#" className='text-gray-600 hover:text-gray-700' >
+                        <Link href="/Cart" className='text-gray-600 hover:text-gray-700' >
                             <FaShoppingCart size={22} className='mr-6' />
                         </Link>
                         <Link href="/SignUp" className='text-gray-600 hover:text-gray-700' >
