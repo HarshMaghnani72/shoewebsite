@@ -1,7 +1,7 @@
 'use client'
 import { useParams } from 'next/navigation';
 import { productsView } from '../productsView';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -13,16 +13,39 @@ function classNames(...classes) {
 }
 
 export default function ProductPage() {
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    console.log(storedCart);
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
   const params = useParams();
   const productId = parseInt(params.id);
   const product = productsView.find(p => p.id === productId);
-
+  const [cart, setCart] = useState([]);
   if (!product || !product.id) {
     return <div>Product not found</div>;
   }
 
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[2]);
-
+  const addToCart=()=>{
+    window.location.href = '/Cart';
+    const newItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      size: selectedSize.name,
+      quantity: 1,
+      imageSrc: product.images[0].src,
+      imageAlt: product.images[0].alt,
+    };
+    const updatedCart = [...cart, newItem];
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    alert("Product added to cart");
+    console.log(updatedCart)
+  }
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -113,8 +136,8 @@ export default function ProductPage() {
               </div>
 
               <button
-                type="submit"
-                onClick={() => alert("Product added to cart")}
+                type="button"
+                onClick={addToCart}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to cart
