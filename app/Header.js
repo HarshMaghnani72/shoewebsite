@@ -1,12 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { FaSearch } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
+import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
-import { FaShoppingCart } from "react-icons/fa";
+import { HiMenu } from "react-icons/hi";
 
 export const Header = ({ onSearch }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -17,6 +20,10 @@ export const Header = ({ onSearch }) => {
         onSearch(searchQuery);
     };
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     const logoImage = {
         name: 'Company Logo',
         href: '#',
@@ -24,55 +31,65 @@ export const Header = ({ onSearch }) => {
         imageAlt: 'Company logo.',
     };
 
+    const NavLink = ({ href, children }) => {
+        const isActive = pathname === href;
+        return (
+            <Link href={href} className={`block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 relative group ${isActive ? 'text-gray-800' : ''}`}>
+                {children}
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform origin-left transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+            </Link>
+        );
+    };
+
     return (
         <header className="bg-white shadow-md sticky top-0 z-50">
-            <nav role="navigation" className="container mx-auto px-6 py-3 flex items-center justify-between">
-                <div className="flex items-center w-1/4">
-                    <img
-                        src={logoImage.imageSrc}
-                        alt={logoImage.imageAlt}
-                        className="w-24 h-auto"
-                    />
-                </div>
-                
-                <div className="flex space-x-4 justify-center w-1/2">
-                    <Link href="/" className="text-gray-600 hover:text-gray-800 relative group">
-                        <span>Home</span>
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </Link>
-                    <Link href="/ShoeList" className="text-gray-600 hover:text-gray-800 relative group">
-                        <span>Products</span>
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </Link>
-                    <Link href="/About" className="text-gray-600 hover:text-gray-800 relative group">
-                        <span>About</span>
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </Link>
-                    <Link href="/ContactUs" className="text-gray-600 hover:text-gray-800 relative group">
-                        <span>Contact</span>
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </Link>
-                </div>
-                
-                <div className='flex items-center justify-end w-1/4'>
-                    <form onSubmit={handleSearchSubmit} className='flex items-center'>
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={handleSearchChange}
-                            placeholder="Search"
-                            className='border border-gray-300 rounded px-2 py-1 mr-2'
+            <nav role="navigation" className="container mx-auto px-4 sm:px-6 py-3">
+                <div className="flex items-center justify-between flex-wrap">
+                    <div className="flex items-center flex-shrink-0 mr-6">
+                        <img
+                            src={logoImage.imageSrc}
+                            alt={logoImage.imageAlt}
+                            className="w-16 sm:w-24 h-auto"
                         />
-                        <button type="submit" className='text-gray-600 hover:text-gray-700'>
-                            <FaSearch size={22} />
+                    </div>
+                    
+                    <div className="block lg:hidden">
+                        <button onClick={toggleMenu} className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-gray-700 hover:border-gray-700">
+                            <HiMenu size={24} />
                         </button>
-                    </form>
-                    <Link href="/Cart" className='text-gray-600 hover:text-gray-700 ml-4'>
-                        <FaShoppingCart size={22} />
-                    </Link>
-                    <Link href="/SignUp" className='text-gray-600 hover:text-gray-700 ml-4'>
-                        <CgProfile size={22} />
-                    </Link>
+                    </div>
+                    
+                    <div className={`w-full flex-grow lg:flex lg:items-center lg:w-auto ${isMenuOpen ? 'block' : 'hidden'}`}>
+                        <div className="text-sm lg:flex-grow mt-4 lg:mt-0">
+                            <NavLink href="/">Home</NavLink>
+                            <NavLink href="/ShoeList">Products</NavLink>
+                            <NavLink href="/About">About</NavLink>
+                            <NavLink href="/ContactUs">Contact</NavLink>
+                        </div>
+                        
+                        <div className='mt-4 lg:mt-0 flex flex-col sm:flex-row items-center'>
+                            <form onSubmit={handleSearchSubmit} className='flex items-center mb-2 sm:mb-0 sm:mr-2'>
+                                <input
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={handleSearchChange}
+                                    placeholder="Search"
+                                    className='border border-gray-300 rounded px-2 py-1 w-full sm:w-auto'
+                                />
+                                <button type="submit" className='text-gray-600 hover:text-gray-700 ml-2'>
+                                    <FaSearch size={22} />
+                                </button>
+                            </form>
+                            <div className='flex items-center mt-2 sm:mt-0'>
+                                <Link href="/Cart" className='text-gray-600 hover:text-gray-700 mr-4'>
+                                    <FaShoppingCart size={22} />
+                                </Link>
+                                <Link href="/SignUp" className='text-gray-600 hover:text-gray-700'>
+                                    <CgProfile size={22} />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>

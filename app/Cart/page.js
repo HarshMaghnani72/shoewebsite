@@ -25,7 +25,7 @@ const Page = () => {
         localStorage.setItem('cart', JSON.stringify(updatedProducts));
     };
 
-    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    const totalPrice = products.price;
 
     return (
         <div className="mt-10 mb-10 overflow-hidden flex items-center justify-center">
@@ -64,7 +64,7 @@ const Page = () => {
                                                     </h3>
                                                     <p className="ml-4">{product.price}</p>
                                                 </div>
-                                                <p className="mt-1 text-sm text-gray-500">{product.size}</p>
+                                                <p className="mt-1 text-sm text-gray-500">Size {product.size}</p>
                                             </div>
                                             <div className="flex flex-1 items-end justify-between text-sm">
                                                 <p className="text-gray-500">Qty {product.quantity}</p>
