@@ -35,8 +35,10 @@ export const Header = ({ onSearch }) => {
         const isActive = pathname === href;
         return (
             <Link href={href} className={`block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 relative group ${isActive ? 'text-gray-800' : ''}`}>
-                {children}
-                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform origin-left transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                <span className="relative">
+                    {children}
+                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transform origin-left transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                </span>
             </Link>
         );
     };
