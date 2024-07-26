@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import { Header } from '../Header';
 import { Footer } from '../Footer';
 import Header2 from '../Header2';
 
@@ -33,7 +32,7 @@ export default function ContactUs() {
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">Contact Us</h2>
           <p className="mt-2 text-base sm:text-lg leading-8 text-gray-600">Lace up and let's talk.</p>
         </div>
-        <form action="#" method="POST" className="mx-auto mt-8 sm:mt-16 max-w-xl sm:mt-20 bg-white p-4 sm:p-8 rounded-lg shadow-lg">
+        <form action="#" method="POST" className="mx-auto mt-8 sm:mt-16 max-w-xl  bg-white p-4 sm:p-8 rounded-lg shadow-lg">
           <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-y-6 sm:grid-cols-2">
             <div>
               <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">First name</label>
