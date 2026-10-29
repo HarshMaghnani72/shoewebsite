@@ -2,6 +2,7 @@
 import { useParams } from 'next/navigation';
 import { productsView } from '../productsView';
 import { useState, useEffect } from 'react';
+import SizeGuideModal from '../../components/SizeGuideModal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -18,8 +19,13 @@ export default function ProductPage() {
   const product = productsView.find(p => p.id === productId);
 
   const [cart, setCart] = useState([]);
-  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[2]);
+  const [selectedSize, setSelectedSize] = useState(
+    product?.sizes && product.sizes.length > 2 
+      ? product.sizes[2] 
+      : product?.sizes?.[0] || { name: '8', inStock: true }
+  );
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
@@ -37,6 +43,10 @@ export default function ProductPage() {
   }
 
   const addToCart = () => {
+    if (!selectedSize) {
+      alert("Please select a size");
+      return;
+    }
     const newItem = {
       id: product.id,
       name: product.name,
@@ -96,6 +106,13 @@ export default function ProductPage() {
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size(US)</h3>
+                  <button
+                    type="button"
+                    onClick={() => setIsSizeGuideOpen(true)}
+                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500 underline focus:outline-none"
+                  >
+                    Size guide & fit predictor
+                  </button>
                 </div>
 
                 <fieldset className="mt-4">
@@ -119,6 +136,7 @@ export default function ProductPage() {
                           disabled={!size.inStock}
                           className="sr-only"
                           aria-labelledby={`size-choice-${size.name}-label`}
+                          checked={selectedSize.name === size.name}
                           onChange={() => setSelectedSize(size)}
                         />
                         <span id={`size-choice-${size.name}-label`}>{size.name}</span>
@@ -198,6 +216,12 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+      <SizeGuideModal
+        isOpen={isSizeGuideOpen}
+        onClose={() => setIsSizeGuideOpen(false)}
+        onSelectSize={(size) => setSelectedSize(size)}
+        productSizes={product.sizes}
+      />
     </div>
   )
 }
